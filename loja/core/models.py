@@ -3,17 +3,18 @@ import uuid
 
 
 class Produto(models.Model):
-    identificado = models.UUIDField(default=uuid.uuid4())
+    identificado = models.UUIDField(editable=False, default=uuid.uuid4())
     nome = models.CharField(max_length=255)
     descricao = models.CharField(max_length=255)
     preco = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
+    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.nome}, {self.descricao}'
 
 
 class Pedido(models.Model):
-    identificado = models.UUIDField(default=uuid.uuid4())
+    identificado = models.UUIDField(editable=False, default=uuid.uuid4())
     produtos = models.ManyToManyField('Produto', related_name='produtos_pedidos')
     preco = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     STATUS = (('PR', 'Pedido Realizado'),
@@ -29,9 +30,8 @@ class Pedido(models.Model):
 
 
 class Categoria(models.Model):
-    identificado = models.UUIDField(default=uuid.uuid4())
+    identificado = models.UUIDField(editable=False, default=uuid.uuid4())
     nome = models.CharField(max_length=255)
-    produto = models.ForeignKey('Produto', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.nome}'
