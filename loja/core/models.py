@@ -7,7 +7,7 @@ class Produto(models.Model):
     nome = models.CharField(max_length=255)
     descricao = models.CharField(max_length=255)
     preco = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
-    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
+    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, related_name='categorias_produto')
 
     def __str__(self):
         return f'{self.nome}, {self.descricao}'
@@ -41,6 +41,7 @@ class Estoque(models.Model):
     item = models.ForeignKey('Produto',
                              on_delete=models.CASCADE,
                              related_name='item_em_estoque')
+
     quantidade = models.IntegerField(default=0)
 
     def __str__(self):
