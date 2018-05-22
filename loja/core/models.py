@@ -15,7 +15,7 @@ class Produto(models.Model):
 
 class Pedido(models.Model):
     identificado = models.UUIDField(editable=False, default=uuid.uuid4())
-    produto = models.ManyToManyField('Produto', related_name='produtos_pedidos')
+    produto_pedido = models.ManyToManyField('Produto', related_name='produtos_pedidos')
     preco = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     STATUS = (('PR', 'Pedido Realizado'),
               ('SP', 'Separação em estoque'),
@@ -38,10 +38,7 @@ class Categoria(models.Model):
 
 
 class Estoque(models.Model):
-    item = models.ForeignKey('Produto',
-                             on_delete=models.CASCADE,
-                             related_name='item_em_estoque')
-
+    item = models.ForeignKey('Produto', on_delete=models.CASCADE, related_name='produto_estoque')
     quantidade = models.IntegerField(default=0)
 
     def __str__(self):
