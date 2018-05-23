@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -23,7 +22,6 @@ def create_users(request):
                              email=form.cleaned_data.get("email"),
                              password=form.cleaned_data.get("password"))
 
-    messages.success(request, SUCESSO)
     return HttpResponseRedirect(r('usuario:login'))
 
 
