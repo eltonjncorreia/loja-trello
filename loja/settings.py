@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'loja.usuario',
     'loja.core',
     'loja.store',
+
 ]
 
 MIDDLEWARE = [
@@ -83,7 +85,6 @@ DATABASES = {
     'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 
 }
-
 
 
 # Password validation
