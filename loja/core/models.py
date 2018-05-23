@@ -3,19 +3,21 @@ import uuid
 
 
 class Produto(models.Model):
-    identificado = models.UUIDField(editable=False, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, auto_created=True,
+                          editable=False, default=uuid.uuid4)
     nome = models.CharField(max_length=255)
     descricao = models.CharField(max_length=255)
     preco = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
-    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, related_name='categorias_produto')
+    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, related_name='categorias_produtos')
 
     def __str__(self):
         return f'{self.nome}, {self.descricao}'
 
 
 class Pedido(models.Model):
-    identificado = models.UUIDField(editable=False, default=uuid.uuid4())
-    produto_pedido = models.ManyToManyField('Produto', related_name='produtos_pedidos')
+    id = models.UUIDField(primary_key=True, auto_created=True,
+                          editable=False, default=uuid.uuid4)
+    produto = models.ManyToManyField('Produto', related_name='pedidos_produtos')
     preco = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     STATUS = (('PR', 'Pedido Realizado'),
               ('SP', 'Separação em estoque'),
@@ -30,7 +32,8 @@ class Pedido(models.Model):
 
 
 class Categoria(models.Model):
-    identificado = models.UUIDField(editable=False, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, auto_created=True,
+                          editable=False, default=uuid.uuid4)
     nome = models.CharField(max_length=255)
 
     def __str__(self):
@@ -38,7 +41,9 @@ class Categoria(models.Model):
 
 
 class Estoque(models.Model):
-    item = models.ForeignKey('Produto', on_delete=models.CASCADE, related_name='produto_estoque')
+    id = models.UUIDField(primary_key=True, auto_created=True,
+                          editable=False, default=uuid.uuid4)
+    item = models.ForeignKey('Produto', on_delete=models.CASCADE, related_name='itens')
     quantidade = models.IntegerField(default=0)
 
     def __str__(self):

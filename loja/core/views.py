@@ -22,4 +22,3 @@ class PedidoViewSet(ModelViewSet):
 class EstoqueViewSet(ModelViewSet):
     queryset = Estoque.objects.all()
     serializer_class = EstoqueSerializer
-
