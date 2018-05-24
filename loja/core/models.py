@@ -1,5 +1,8 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 import uuid
+
+from loja.store.models import Carrinho
 
 
 class Produto(models.Model):
@@ -9,6 +12,7 @@ class Produto(models.Model):
     descricao = models.CharField(max_length=255)
     preco = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
     categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, related_name='categorias_produtos')
+    carrinho = GenericRelation(Carrinho)
 
     def __str__(self):
         return f'{self.nome}, {self.descricao}'
