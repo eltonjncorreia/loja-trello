@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, resolve_url as r
-from loja.core.models import Produto, Categoria, Pedido
+from django.shortcuts import render, resolve_url as r
+
+from loja.core.models import Produto, Pedido
 
 
 def home(request):
