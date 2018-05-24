@@ -1,0 +1,33 @@
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, resolve_url as r
+from loja.core.models import Produto, Categoria, Pedido
+
+
+def home(request):
+    produtos = Produto.objects.all()
+    pedidos = produtos.filter(produtos_em_pedidos__us=request.user)
+    return render(request, 'store/home.html', {'produtos': produtos, 'pedidos': pedidos})
+
+
+def carrinho(request, pk=None):
+    try:
+        produto = Produto.objects.get(pk=pk)
+        pedido = Pedido(us=request.user)
+
+        if not Pedido.objects.filter(us=request.user):
+            pedido.save()
+
+        pedido = Pedido.objects.get(us__exact=request.user)
+        pedido.produto.add(produto)
+
+    except Produto.DoesNotExist:
+        raise ValueError('Error')
+
+    return HttpResponseRedirect(r('store:home'))
+
+
+# def checkout(request, pk):
+#     pedido = Pedido()
+#     pedido.preco += float(prod.preco)
+#     pedido.save()
+#     pedido.produto.add(prod)
