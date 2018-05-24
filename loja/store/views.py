@@ -14,7 +14,6 @@ def carrinho(request, pk=None):
     try:
         produto = Produto.objects.get(pk=pk)
         pedido = Pedido(us=request.user)
-
         if not Pedido.objects.filter(us=request.user):
             pedido.save()
 
@@ -27,8 +26,6 @@ def carrinho(request, pk=None):
     return HttpResponseRedirect(r('store:home'))
 
 
-# def checkout(request, pk):
-#     pedido = Pedido()
-#     pedido.preco += float(prod.preco)
-#     pedido.save()
-#     pedido.produto.add(prod)
+def checkout(request):
+    pass
+
