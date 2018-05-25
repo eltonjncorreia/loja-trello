@@ -33,7 +33,9 @@
                                         <strong>Preço:</strong>{{ produto.preco }}
                                     </small>
                                 </p>
-                                <a href="{% url 'store:carrinho' produto.pk %}" class="btn btn-outline-success">Adicionar ao aos pedidos</a>
+                                <a href="{% url 'store:carrinho' produto.pk %}" class="btn btn-outline-success">
+                                    Adicionar ao carrinho
+                                </a>
                             </div>
 
                         </div>
