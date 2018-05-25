@@ -125,3 +125,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+API_KEY = config('API_KEY')
+API_TOKEN = config('API_TOKEN')

@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from .models import Pedido, Produto, Categoria, Estoque
 from .serializers import ProdutoSerializer, CategoriaSerializer, \
-                         PeditoSerializer, EstoqueSerializer
+                         PedidoSerializer, EstoqueSerializer
 
 
 class ProdutoViewSet(ModelViewSet):
@@ -16,7 +16,7 @@ class CategoriaViewSet(ModelViewSet):
 
 class PedidoViewSet(ModelViewSet):
     queryset = Pedido.objects.all()
-    serializer_class = PeditoSerializer
+    serializer_class = PedidoSerializer
 
 
 class EstoqueViewSet(ModelViewSet):
