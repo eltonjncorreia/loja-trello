@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from loja.core.models import Produto, Pedido, Categoria, Estoque
+from .models import Produto, Pedido, Categoria, Estoque
 
 
 class ProdutoSerializer(serializers.ModelSerializer):
