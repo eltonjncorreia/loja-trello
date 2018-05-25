@@ -9,7 +9,8 @@ class Produto(models.Model):
     nome = models.CharField(max_length=255)
     descricao = models.CharField(max_length=255)
     preco = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
-    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, related_name='categorias_produtos')
+    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE,
+                                  related_name='categorias_produtos')
 
     def __str__(self):
         return f'{self.nome}, {self.descricao}'
@@ -19,6 +20,7 @@ class Pedido(models.Model):
     id = models.UUIDField(primary_key=True, auto_created=True,
                           editable=False, default=uuid.uuid4)
     produto = models.ManyToManyField('Produto', related_name='produtos_em_pedidos')
+
     preco = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
     STATUS = (('PR', 'Pedido Realizado'),
               ('SP', 'Separação em estoque'),
