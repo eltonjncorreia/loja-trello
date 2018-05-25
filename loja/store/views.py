@@ -19,7 +19,7 @@ def carrinho(request, pk=None):
 
         pedido = Pedido.objects.get(us__exact=request.user)
         pedido.produto.add(produto)
-        pedido.preco += pedido.produto.preco
+        pedido.preco += produto.preco
         pedido.save(force_update=True)
 
     except Produto.DoesNotExist:
@@ -28,6 +28,13 @@ def carrinho(request, pk=None):
     return HttpResponseRedirect(r('store:home'))
 
 
-def checkout(request):
-    pass
+def remove(request, pk):
+    try:
+        p = Pedido.objects.get(produto__id__exact=pk)
+        p.produto.remove(pk)
+
+    except Pedido.DoesNotExist:
+        raise ValueError('Erro')
+
+    return HttpResponseRedirect(r('store:home'))
 
