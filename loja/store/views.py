@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url as r
 
@@ -9,15 +10,16 @@ from uuid import UUID
 import json
 
 
+@login_required(login_url='/login/')
 def home(request):
     produtos = Produto.objects.all()
-    pedidos = produtos.filter(produtos_em_pedidos__us=request.user)
+    # pedidos = produtos.filter(produtos_em_pedidos__us=request.user)
 
-    if pedidos.exists():
-        pedido = pedidos.only('id').latest('id')
-        cartao_trello(request, pedido=pedido.pk, desc=pedido.nome)
+    # if pedidos.exists():
+    #     pedido = pedidos.only('id').latest('id')
+    #     cartao_trello(request, pedido=pedido.pk, desc=pedido.nome)
 
-    return render(request, 'store/home.html', {'produtos': produtos, 'pedidos': pedidos})
+    return render(request, 'store/home.html', {'produtos': produtos, 'pedidos': produtos})
 
 
 def carrinho(request, pk=None):
