@@ -1,7 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url as r
 
-from loja.api.serializers import PedidoSerializer
 from loja.settings import API_KEY, API_TOKEN
 from loja.api.models import Produto, Pedido
 
@@ -14,8 +13,9 @@ def home(request):
     produtos = Produto.objects.all()
     pedidos = produtos.filter(produtos_em_pedidos__us=request.user)
 
-    pedido = pedidos.only('id').latest('id')
-    cartao_trello(request, pedido=pedido.pk, desc=pedido.nome)
+    if pedidos.exists():
+        pedido = pedidos.only('id').latest('id')
+        cartao_trello(request, pedido=pedido.pk, desc=pedido.nome)
 
     return render(request, 'store/home.html', {'produtos': produtos, 'pedidos': pedidos})
 
