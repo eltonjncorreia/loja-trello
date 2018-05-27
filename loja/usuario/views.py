@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -35,6 +36,8 @@ def validar(request, sucesso=SUCESSO):
         if user.is_active:
             login(request, user)
             return HttpResponseRedirect(r(sucesso))
+    else:
+        messages.success(request, 'usuario não autenticado')
 
     return HttpResponseRedirect(r('usuario:login'))
 
