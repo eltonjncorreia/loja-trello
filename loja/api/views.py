@@ -1,4 +1,6 @@
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from requests import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
 from .models import Pedido, Produto, Categoria, Estoque
 from .serializers import ProdutoSerializer, CategoriaSerializer, \
@@ -8,22 +10,23 @@ from .serializers import ProdutoSerializer, CategoriaSerializer, \
 class ProdutoViewSet(ModelViewSet):
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, IsAdminUser)
 
 
 class CategoriaViewSet(ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, IsAdminUser)
 
 
 class PedidoViewSet(ModelViewSet):
     queryset = Pedido.objects.all()
     serializer_class = PedidoSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, IsAdminUser)
+
 
 
 class EstoqueViewSet(ModelViewSet):
     queryset = Estoque.objects.all()
     serializer_class = EstoqueSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, IsAdminUser)
